@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gian Carlo R. Bigcas — Future Robotics Engineer</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#07070b;
+      --card:#0b0c10;
+      --neon:#00b0ff; /* neon blue */
+      --glow: 0 0 14px rgba(0,176,255,0.16), 0 0 30px rgba(0,176,255,0.08);
+      --glass: rgba(255,255,255,0.02);
+      --muted: #9aa4b2;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:radial-gradient(ellipse at 10% 10%, rgba(0,176,255,0.02), transparent 10%), linear-gradient(180deg,#05060a 0%, #0a0a0f 60%);font-family:Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial;color:#eaf6ff}
+
+    /* Neon grid hero */
+    .hero-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.55}
+
+    /* Page layout */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(7,7,11,0.55), rgba(7,7,11,0.35));backdrop-filter: blur(6px);border-bottom:1px solid rgba(0,176,255,0.06)}
+    .container{max-width:1100px;margin:0 auto;padding:1rem}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0}
+    .brand{display:flex;gap:.8rem;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--neon),#4cc8ff);box-shadow:var(--glow);display:flex;align-items:center;justify-content:center;font-family:Orbitron,monospace;font-weight:700;color:#031018}
+    .navlinks{display:flex;gap:1rem}
+    .navlinks a{color:var(--muted);text-decoration:none;padding:.5rem .8rem;border-radius:8px;transition:all .25s}
+    .navlinks a:hover{color:#eaf6ff;background:linear-gradient(90deg, rgba(0,176,255,0.06), rgba(255,255,255,0.01));box-shadow:0 4px 20px rgba(0,176,255,0.05)}
+    .cta{padding:.4rem .8rem;border-radius:10px;background:transparent;border:1px solid rgba(0,176,255,0.12);color:var(--neon);font-weight:600;backdrop-filter: blur(2px)}
+
+    /* Hero */
+    .hero{min-height:72vh;display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:center;position:relative;padding:3rem 0}
+    .hero-left h1{font-family:Orbitron,monospace;font-size:2.2rem;margin:0 0 .6rem;color:#eaf6ff;letter-spacing:.6px}
+    .tag{color:var(--neon);font-weight:600;margin-bottom:1rem;display:inline-block}
+    .intro{font-size:1rem;line-height:1.5;color:var(--muted);max-width:58ch}
+    .hero-actions{margin-top:1.4rem;display:flex;gap:1rem}
+    .btn{background:transparent;border:1px solid rgba(0,176,255,0.12);padding:.6rem 1rem;border-radius:12px;color:var(--neon);text-decoration:none;font-weight:600;transition:transform .18s, box-shadow .18s}
+    .btn:hover{transform:translateY(-4px);box-shadow:var(--glow)}
+
+    .profile-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));padding:1.4rem;border-radius:14px;border:1px solid rgba(0,176,255,0.06);box-shadow:var(--glow);display:flex;flex-direction:column;gap:.8rem}
+    .avatar{width:92px;height:92px;border-radius:18px;background:linear-gradient(135deg,#05232f,rgba(0,176,255,0.06));display:flex;align-items:center;justify-content:center;font-family:Orbitron;font-weight:700;color:var(--neon);font-size:1.2rem}
+    .small{color:var(--muted);font-size:.95rem}
+
+    /* Sections */
+    section{padding:3rem 0}
+    .section-title{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+    .section-title h2{font-family:Orbitron;font-size:1.25rem;margin:0;color:#eaf6ff}
+    .section-sub{color:var(--muted);font-size:.95rem}
+
+    /* About panel */
+    .about-grid{display:grid;grid-template-columns:1fr 340px;gap:1.2rem}
+    .info-panel{background:var(--card);padding:1rem;border-radius:12px;border:1px solid rgba(0,176,255,0.04)}
+    .info-row{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+
+    /* Resume */
+    .resume{display:flex;gap:1rem;flex-wrap:wrap}
+    .resume-left{flex:1;min-width:280px}
+    .resume-right{width:340px}
+    .skill-pill{display:inline-block;padding:.35rem .6rem;border-radius:999px;border:1px solid rgba(0,176,255,0.08);margin:.25rem .3rem;color:var(--neon);font-weight:600}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:1rem;border-radius:12px;border:1px solid rgba(0,176,255,0.04);transition:transform .25s, box-shadow .25s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,176,255,0.06), var(--glow)}
+    .card h3{margin:0 0 .5rem;font-family:Orbitron;font-size:1rem}
+    .card p{margin:0;color:var(--muted);font-size:.95rem}
+
+    /* Skills */
+    .skill{margin:.6rem 0}
+    .progress{height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--neon),#7ce0ff);box-shadow:var(--glow);transition:width .9s cubic-bezier(.2,.9,.3,1)}
+
+    /* Contact */
+    form{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    form input, form textarea{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:.7rem;border-radius:10px;color:#eaf6ff}
+    form textarea{grid-column:1/-1;min-height:120px}
+    .footer{padding:2rem 0;border-top:1px solid rgba(255,255,255,0.02);text-align:center;color:var(--muted);font-size:.95rem}
+
+    /* Responsive */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr;min-height:68vh}
+      .about-grid{grid-template-columns:1fr}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+      nav .navlinks{display:none}
+    }
+    @media(max-width:560px){
+      .projects-grid{grid-template-columns:1fr}
+      .hero-left h1{font-size:1.8rem}
+      .profile-card{align-items:center;text-align:center}
+      form{grid-template-columns:1fr}
+    }
+
+    /* Entrance animations */
+    .reveal{opacity:0;transform:translateY(12px);transition:all .75s cubic-bezier(.2,.9,.3,1)}
+    .reveal.in{opacity:1;transform:none}
+
+    /* small helper */
+    .muted{color:var(--muted)}
+    .social{display:flex;gap:.6rem}
+    .social a{padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--muted)}
+
+  </style>
+</head>
+<body>
+
+  <!-- Decorative hero canvas -->
+  <canvas class="hero-canvas" id="canvas"></canvas>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo">GB</div>
+          <div>
+            <div style="font-weight:600">Gian Carlo R. Bigcas</div>
+            <div style="font-size:.78rem;color:var(--muted);margin-top:2px">Aspiring Robotics Engineer</div>
+          </div>
+        </div>
+
+        <div class="navlinks">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <a href="#contact" class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="home" class="hero">
+      <div class="hero-left">
+        <div class="tag">Future Robotics Engineer</div>
+        <h1 class="reveal">Hi! I’m Gian Carlo R. Bigcas</h1>
+        <p class="intro reveal">I’m a passionate student working toward becoming a robotics engineer. This site showcases my skills, achievements, and projects that reflect my journey in robotics and technology.</p>
+
+        <div class="hero-actions reveal">
+          <a href="#projects" class="btn">View My Work</a>
+          <a href="#resume" class="btn">Download Résumé (PDF)</a>
+        </div>
+      </div>
+
+      <aside class="profile-card reveal">
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div class="avatar">G B</div>
+          <div>
+            <div style="font-weight:700">Gian Carlo R. Bigcas</div>
+            <div class="small muted">BS Information Technology — PLV</div>
+          </div>
+        </div>
+
+        <div style="padding-top:.6rem;border-top:1px dashed rgba(255,255,255,0.02)">
+          <div class="small">Year Level</div>
+          <div style="font-weight:700;color:var(--neon)">1st Year</div>
+        </div>
+
+        <div style="display:flex;gap:.6rem;justify-content:space-between;align-items:center;padding-top:.6rem">
+          <div class="small muted">Location</div>
+          <div class="small">Philippines</div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="section-title">
+        <h2>About Me</h2>
+        <div class="section-sub">I want to be a successful robotics engineer someday.</div>
+      </div>
+
+      <div class="about-grid">
+        <div>
+          <p class="muted">I’m good at managing my time, and I’m a fast learner who enjoys coding and problem-solving. I believe in combining innovation and teamwork to build technology that helps people.</p>
+
+          <div style="margin-top:1.1rem">
+            <h3 style="margin:0 0 .4rem">Interests</h3>
+            <div class="skill-pill">Robotics</div>
+            <div class="skill-pill">Embedded Systems</div>
+            <div class="skill-pill">Java</div>
+            <div class="skill-pill">Simulation</div>
+          </div>
+        </div>
+
+        <div class="info-panel">
+          <div class="info-row"><strong>Name</strong><span>Gian Carlo R. Bigcas</span></div>
+          <div class="info-row"><strong>Email</strong><span><a href="mailto:gc.bigcas@gmail.com" style="color:var(--neon);text-decoration:none">gc.bigcas@gmail.com</a></span></div>
+          <div class="info-row"><strong>School</strong><span>Pamantasan ng Lungsod ng Valenzuela (PLV)</span></div>
+          <div class="info-row"><strong>Degree</strong><span>BS Information Technology</span></div>
+          <div class="info-row"><strong>Year Level</strong><span>1st Year</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume" class="reveal">
+      <div class="section-title"><h2>Résumé</h2><div class="section-sub">Hybrid: Functional + Chronological</div></div>
+
+      <div class="resume">
+        <div class="resume-left info-panel">
+          <h3 style="margin-top:0">Career Objective</h3>
+          <p class="muted">To build a career as a robotics engineer by enhancing my programming, problem-solving, and design abilities through practical projects and teamwork.</p>
+
+          <h3 style="margin:.6rem 0">Key Skills</h3>
+          <div class="muted">Java Programming · Critical Thinking · Problem-Solving · Time Management · Fast Learning · Communication</div>
+
+          <h3 style="margin:.6rem 0">Experience</h3>
+          <div class="muted">FES Facilitator</div>
+
+          <h3 style="margin:.6rem 0">Achievements</h3>
+          <div class="muted">Consistent with Honor</div>
+
+          <div style="margin-top:1rem">
+            <a class="btn" href="#">Download Résumé (PDF)</a>
+          </div>
+        </div>
+
+        <aside class="resume-right info-panel">
+          <h3 style="margin-top:0">Education</h3>
+          <div class="muted">BSIT – Pamantasan ng Lungsod ng Valenzuela (PLV), 1st Year</div>
+
+          <h3 style="margin:.6rem 0">Technical Skills</h3>
+          <div class="skill">
+            <div style="display:flex;justify-content:space-between"><small>Java Programming</small><small class="muted">80%</small></div>
+            <div class="progress"><i style="width:80%"></i></div>
+          </div>
+          <div class="skill">
+            <div style="display:flex;justify-content:space-between"><small>Problem Solving</small><small class="muted">75%</small></div>
+            <div class="progress"><i style="width:75%"></i></div>
+          </div>
+
+          <div class="skill">
+            <div style="display:flex;justify-content:space-between"><small>Communication</small><small class="muted">70%</small></div>
+            <div class="progress"><i style="width:70%"></i></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <div class="section-title"><h2>Projects</h2><div class="section-sub">Sample robotics & coding projects</div></div>
+
+      <div style="margin-bottom:.6rem;color:var(--muted)">⚠️ Disclaimer: The listed projects are conceptual examples created for portfolio demonstration purposes.</div>
+
+      <div class="projects-grid">
+        <article class="card">
+          <h3>Autonomous Line-Following Robot</h3>
+          <p class="muted">A robot that follows a path using IR sensors and PID-inspired logic for smooth navigation.</p>
+          <div style="margin-top:.6rem"><a href="#" class="btn">View Project</a></div>
+        </article>
+
+        <article class="card">
+          <h3>Smart Obstacle Detection System</h3>
+          <p class="muted">A safety-focused automation project using ultrasonic sensors to detect and avoid obstacles.</p>
+          <div style="margin-top:.6rem"><a href="#" class="btn">View Project</a></div>
+        </article>
+
+        <article class="card">
+          <h3>Java-Based Simulation Tool</h3>
+          <p class="muted">Software that simulates robotic movement and logic for testing algorithms before hardware implementation.</p>
+          <div style="margin-top:.6rem"><a href="#" class="btn">View Project</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <div class="section-title"><h2>Skills</h2><div class="section-sub">Technical & soft skills</div></div>
+
+      <div class="info-panel">
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <div><strong>Java Programming</strong>
+            <div class="progress" style="margin-top:.4rem"><i style="width:80%"></i></div>
+          </div>
+
+          <div><strong>Problem Solving</strong>
+            <div class="progress" style="margin-top:.4rem"><i style="width:75%"></i></div>
+          </div>
+
+          <div><strong>Communication</strong>
+            <div class="progress" style="margin-top:.4rem"><i style="width:70%"></i></div>
+          </div>
+
+          <div><strong>Time Management</strong>
+            <div class="progress" style="margin-top:.4rem"><i style="width:78%"></i></div>
+          </div>
+
+          <div><strong>Teamwork</strong>
+            <div class="progress" style="margin-top:.4rem"><i style="width:72%"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="achievements" class="reveal">
+      <div class="section-title"><h2>Achievements</h2><div class="section-sub">Recognitions & awards</div></div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <div class="card" style="flex:0 0 220px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:110px">
+          <div style="font-size:1.6rem;color:var(--neon);font-family:Orbitron">★</div>
+          <div style="margin-top:.6rem;font-weight:700">Consistent with Honor</div>
+          <div class="muted">Academic recognition</div>
+        </div>
+
+        <div class="card" style="flex:0 0 220px;min-height:110px;display:flex;align-items:center;justify-content:center;flex-direction:column">
+          <div style="font-size:1.6rem;color:var(--neon);font-family:Orbitron">🏅</div>
+          <div style="margin-top:.6rem;font-weight:700">Future Award</div>
+          <div class="muted">Placeholder for certificates</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="section-title"><h2>Contact</h2><div class="section-sub">Get in touch</div></div>
+
+      <div class="about-grid">
+        <div class="info-panel">
+          <form id="contactForm" onsubmit="return false;">
+            <input type="text" name="name" placeholder="Your name" required />
+            <input type="email" name="email" placeholder="Your email" required />
+            <textarea name="message" placeholder="Message" required></textarea>
+            <button class="btn" type="submit" onclick="handleContact()">Send Message</button>
+          </form>
+        </div>
+
+        <aside class="info-panel">
+          <h3 style="margin-top:0">Contact Info</h3>
+          <div class="muted">📧 <a href="mailto:gc.bigcas@gmail.com" style="color:var(--neon);text-decoration:none">gc.bigcas@gmail.com</a></div>
+          <div style="margin-top:.4rem" class="muted">📱 09279567052</div>
+
+          <div style="margin-top:1rem">
+            <div class="social">
+              <a href="https://github.com/GianBGCS" target="_blank">GitHub</a>
+              <a href="https://www.linkedin.com/in/gian-carlo-bigcas-5a6892390?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">LinkedIn</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © 2025 Gian Carlo R. Bigcas | Robotics Portfolio
+    </footer>
+
+  </main>
+
+  <script>
+    // Smooth scroll for links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const el = document.querySelector(a.getAttribute('href'));
+        if(!el) return;
+        el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Contact handler (placeholder)
+    function handleContact(){
+      const form = document.getElementById('contactForm');
+      const data = new FormData(form);
+      // This is a placeholder. Hook to email service or backend as needed.
+      alert('Thanks, ' + (data.get('name')||'there') + '! Message received (demo).');
+      form.reset();
+    }
+
+    // Canvas background: simple neon grid + drifting particles
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+    addEventListener('resize',resize);resize();
+
+    const pts = [];
+    for(let i=0;i<120;i++) pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, r: Math.random()*1.6+0.4});
+
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // faint grid
+      ctx.save();
+      ctx.globalAlpha=0.09;
+      ctx.strokeStyle='#004f6b';
+      const step = 60;
+      for(let x=0;x<canvas.width;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();}
+      for(let y=0;y<canvas.height;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}
+      ctx.restore();
+
+      // particles
+      for(const p of pts){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -10) p.x = canvas.width+10; if(p.x>canvas.width+10) p.x=-10;
+        if(p.y < -10) p.y = canvas.height+10; if(p.y>canvas.height+10) p.y=-10;
+        const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*10);
+        g.addColorStop(0, 'rgba(0,176,255,0.9)');
+        g.addColorStop(1, 'rgba(0,176,255,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+  </script>
+</body>
+</html>
