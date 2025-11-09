@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+I  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gian Carlo R. Bigcas — Future Robotics Engineer</title>
 
   <!-- Fonts -->
@@ -105,6 +105,20 @@
     .muted{color:var(--muted)}
     .social{display:flex;gap:.6rem}
     .social a{padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--muted)}
+
+    .download-buttons {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.download-buttons .btn {
+  flex: 1;
+  min-width: 220px;
+  text-align: center;
+}
+    
 
   </style>
 </head>
@@ -218,9 +232,12 @@
           <h3 style="margin:.6rem 0">Achievements</h3>
           <div class="muted">Consistent with Honor</div>
 
-          <div style="margin-top:1rem">
-            <a class="btn" href="#">Download Résumé (PDF)</a>
-          </div>
+          <div class="download-buttons">
+  <a class="btn" href="files/resume.pdf" download>Résumé (PDF)</a>
+  <a class="btn" href="files/recommendation-request.pdf" download>Letter of Recommendation Request</a>
+  <a class="btn" href="files/application-letter.pdf" download>Letter of Application</a>
+</div>
+
         </div>
 
         <aside class="resume-right info-panel">
