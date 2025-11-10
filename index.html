@@ -144,7 +144,7 @@ I  <meta name="viewport" content="width=device-width, initial-scale=1" />
   text-align: center;
 }
 
-    /* --- Gallery Modal --- */
+/* Photo modal layout */
 .modal {
   display: none;
   position: fixed;
@@ -153,98 +153,66 @@ I  <meta name="viewport" content="width=device-width, initial-scale=1" />
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.85);
   justify-content: center;
   align-items: center;
+  overflow: auto;
 }
 
 .modal-content {
-  position: relative;
-  width: 90%;
-  max-width: 900px;
+  max-width: 90%;
+  background: rgba(15, 15, 15, 0.9);
+  padding: 20px;
+  border-radius: 14px;
   text-align: center;
-  color: white;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 16px;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #0ff;
-  transition: 0.2s;
-}
-
-.close:hover {
-  color: white;
 }
 
 .photo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 10px;
 }
 
-.gallery-photo {
-  width: 45%;
-  border-radius: 1rem;
-  transition: transform 0.3s ease;
+/* Show only one photo on mobile */
+.photo {
+  display: none;
+  width: 100%;
+  border-radius: 10px;
 }
 
-.gallery-photo:hover {
-  transform: scale(1.05);
+.photo.active {
+  display: block;
 }
 
-
-.controls {
-  margin-top: 1rem;
-}
-
-.nav-btn {
-  background: none;
-  border: 1px solid #00f2ff;
-  color: #00f2ff;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  margin: 0 0.5rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.nav-btn:hover {
-  background: #00f2ff;
-  color: black;
-}
-
-    /* View Photo button variation */
-.btn-photo {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.btn-photo:hover {
-  color: #fff;
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.25),
-              0 0 30px rgba(255, 255, 255, 0.15);
-  transform: translateY(-4px);
-}
-    
-
-/* --- Mobile view: show only one photo --- */
-@media (max-width: 768px) {
+/* Show both photos on desktop */
+@media (min-width: 768px) {
   .photo-container {
-    flex-direction: column;
+    grid-template-columns: repeat(2, 1fr);
   }
+  .photo {
+    display: block;
+  }
+  .modal-controls {
+    display: none; /* hide next/prev buttons on desktop */
+  }
+}
 
-  .gallery-photo {
-    width: 100%;
-    max-width: 320px;
-    display: none;
-  }
+.modal-controls {
+  margin-top: 10px;
+}
+
+.modal-controls button {
+  background: transparent;
+  border: 1px solid #00b0ff;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.modal-controls button:hover {
+  box-shadow: 0 0 8px #00b0ff;
 }
 
     
